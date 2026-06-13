@@ -5,6 +5,6 @@ __pycache__/
 
 .claude/
 
-# internal docs — not for the public repo
-CLAUDE.md
-DEPLOY.md
+# internal docs — NEVER push markdown online. All *.md is local-only.
+# (live site needs only *.html / *.json / *.png)
+*.md
