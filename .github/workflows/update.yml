@@ -1,0 +1,42 @@
+name: Update dashboard data
+
+# Runs the Python backtests on a schedule, regenerates all JSON + chart PNGs,
+# and commits them back to the repo. GitHub Pages then auto-serves the fresh data.
+on:
+  schedule:
+    - cron: "0 1 * * *"      # daily at 01:00 UTC (~08:00 Bangkok)
+  workflow_dispatch: {}       # also adds a manual "Run workflow" button
+
+permissions:
+  contents: write             # needed so the bot can commit the new data
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # NOTE: only the Yahoo-based stock data is refreshed here. The crypto
+      # scripts (grid_backtest/walkforward/wheel/dca/build_data) pull from
+      # Binance, which BLOCKS GitHub's cloud-IP runners — so they always fail on
+      # CI. The BTC backtest is a fixed historical analysis (its conclusions
+      # don't change daily) and the live BTC price is fetched client-side in the
+      # browser, so it needs no server-side refresh. To regenerate the BTC data,
+      # run those scripts locally (where Binance is reachable) and push.
+      - name: Refresh stock data (Yahoo — works on CI)
+        run: python stock_data.py
+
+      - name: Commit refreshed data
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add *.json *.png || true
+          git diff --cached --quiet || git commit -m "Auto-update data $(date -u +%Y-%m-%d)"
+          git push

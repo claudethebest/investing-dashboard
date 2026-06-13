@@ -1,0 +1,264 @@
+{
+  "BTCUSDT": {
+    "folds": [
+      {
+        "train_start": "2023-12-31",
+        "test_start": "2024-06-28",
+        "test_end": "2024-08-27",
+        "chosen_spacing_pct": 2.0,
+        "chosen_core": 0.6,
+        "train_ret": 38.6,
+        "opt_test_ret": 1.8,
+        "fixed_test_ret": 2.3,
+        "hodl_test_ret": 0.9
+      },
+      {
+        "train_start": "2024-02-29",
+        "test_start": "2024-08-27",
+        "test_end": "2024-10-26",
+        "chosen_spacing_pct": 2.0,
+        "chosen_core": 0.0,
+        "train_ret": 12.0,
+        "opt_test_ret": 5.6,
+        "fixed_test_ret": 5.1,
+        "hodl_test_ret": 8.7
+      },
+      {
+        "train_start": "2024-04-29",
+        "test_start": "2024-10-26",
+        "test_end": "2024-12-25",
+        "chosen_spacing_pct": 2.0,
+        "chosen_core": 0.0,
+        "train_ret": 11.9,
+        "opt_test_ret": 1.6,
+        "fixed_test_ret": 1.6,
+        "hodl_test_ret": 46.9
+      },
+      {
+        "train_start": "2024-06-28",
+        "test_start": "2024-12-25",
+        "test_end": "2025-02-23",
+        "chosen_spacing_pct": 2.0,
+        "chosen_core": 0.6,
+        "train_ret": 49.5,
+        "opt_test_ret": -1.3,
+        "fixed_test_ret": 0.8,
+        "hodl_test_ret": -2.9
+      },
+      {
+        "train_start": "2024-08-27",
+        "test_start": "2025-02-23",
+        "test_end": "2025-04-24",
+        "chosen_spacing_pct": 2.0,
+        "chosen_core": 0.6,
+        "train_ret": 45.6,
+        "opt_test_ret": -0.4,
+        "fixed_test_ret": 1.4,
+        "hodl_test_ret": -2.1
+      },
+      {
+        "train_start": "2024-10-26",
+        "test_start": "2025-04-24",
+        "test_end": "2025-06-23",
+        "chosen_spacing_pct": 2.0,
+        "chosen_core": 0.6,
+        "train_ret": 37.7,
+        "opt_test_ret": 6.4,
+        "fixed_test_ret": 3.5,
+        "hodl_test_ret": 8.3
+      },
+      {
+        "train_start": "2024-12-25",
+        "test_start": "2025-06-23",
+        "test_end": "2025-08-22",
+        "chosen_spacing_pct": 2.0,
+        "chosen_core": 0.0,
+        "train_ret": 9.9,
+        "opt_test_ret": 2.4,
+        "fixed_test_ret": 2.1,
+        "hodl_test_ret": 14.7
+      },
+      {
+        "train_start": "2025-02-23",
+        "test_start": "2025-08-22",
+        "test_end": "2025-10-21",
+        "chosen_spacing_pct": 2.0,
+        "chosen_core": 0.6,
+        "train_ret": 18.3,
+        "opt_test_ret": -1.8,
+        "fixed_test_ret": 0.4,
+        "hodl_test_ret": -3.6
+      },
+      {
+        "train_start": "2025-04-24",
+        "test_start": "2025-10-21",
+        "test_end": "2025-12-20",
+        "chosen_spacing_pct": 2.0,
+        "chosen_core": 0.6,
+        "train_ret": 20.7,
+        "opt_test_ret": -18.8,
+        "fixed_test_ret": -14.6,
+        "hodl_test_ret": -21.8
+      },
+      {
+        "train_start": "2025-06-23",
+        "test_start": "2025-12-20",
+        "test_end": "2026-02-18",
+        "chosen_spacing_pct": 2.0,
+        "chosen_core": 0.0,
+        "train_ret": -1.8,
+        "opt_test_ret": -21.9,
+        "fixed_test_ret": -21.9,
+        "hodl_test_ret": -23.8
+      },
+      {
+        "train_start": "2025-08-22",
+        "test_start": "2026-02-18",
+        "test_end": "2026-04-19",
+        "chosen_spacing_pct": 2.0,
+        "chosen_core": 0.0,
+        "train_ret": -17.7,
+        "opt_test_ret": 11.1,
+        "fixed_test_ret": 10.7,
+        "hodl_test_ret": 12.4
+      }
+    ],
+    "fee_floor_pct": 0.3,
+    "compounded": {
+      "opt": -19.1,
+      "fix": -12.5,
+      "hod": 22.8
+    }
+  },
+  "BTCTHB": {
+    "folds": [
+      {
+        "train_start": "2023-12-31",
+        "test_start": "2024-06-28",
+        "test_end": "2024-08-27",
+        "chosen_spacing_pct": 2.0,
+        "chosen_core": 0.6,
+        "train_ret": 51.1,
+        "opt_test_ret": -3.6,
+        "fixed_test_ret": -0.9,
+        "hodl_test_ret": -5.9
+      },
+      {
+        "train_start": "2024-02-29",
+        "test_start": "2024-08-27",
+        "test_end": "2024-10-26",
+        "chosen_spacing_pct": 2.0,
+        "chosen_core": 0.0,
+        "train_ret": 14.8,
+        "opt_test_ret": 6.3,
+        "fixed_test_ret": 5.4,
+        "hodl_test_ret": 7.7
+      },
+      {
+        "train_start": "2024-04-29",
+        "test_start": "2024-10-26",
+        "test_end": "2024-12-25",
+        "chosen_spacing_pct": 2.0,
+        "chosen_core": 0.0,
+        "train_ret": 7.9,
+        "opt_test_ret": 4.1,
+        "fixed_test_ret": 3.8,
+        "hodl_test_ret": 48.1
+      },
+      {
+        "train_start": "2024-06-28",
+        "test_start": "2024-12-25",
+        "test_end": "2025-02-23",
+        "chosen_spacing_pct": 2.0,
+        "chosen_core": 0.6,
+        "train_ret": 40.1,
+        "opt_test_ret": -2.4,
+        "fixed_test_ret": -0.0,
+        "hodl_test_ret": -4.3
+      },
+      {
+        "train_start": "2024-08-27",
+        "test_start": "2025-02-23",
+        "test_end": "2025-04-24",
+        "chosen_spacing_pct": 2.0,
+        "chosen_core": 0.6,
+        "train_ret": 43.9,
+        "opt_test_ret": -1.9,
+        "fixed_test_ret": 0.1,
+        "hodl_test_ret": -3.6
+      },
+      {
+        "train_start": "2024-10-26",
+        "test_start": "2025-04-24",
+        "test_end": "2025-06-23",
+        "chosen_spacing_pct": 2.0,
+        "chosen_core": 0.6,
+        "train_ret": 35.1,
+        "opt_test_ret": 5.7,
+        "fixed_test_ret": 3.0,
+        "hodl_test_ret": 7.6
+      },
+      {
+        "train_start": "2024-12-25",
+        "test_start": "2025-06-23",
+        "test_end": "2025-08-22",
+        "chosen_spacing_pct": 2.0,
+        "chosen_core": 0.0,
+        "train_ret": 7.3,
+        "opt_test_ret": 2.5,
+        "fixed_test_ret": 2.5,
+        "hodl_test_ret": 11.6
+      },
+      {
+        "train_start": "2025-02-23",
+        "test_start": "2025-08-22",
+        "test_end": "2025-10-21",
+        "chosen_spacing_pct": 2.0,
+        "chosen_core": 0.6,
+        "train_ret": 14.1,
+        "opt_test_ret": -1.6,
+        "fixed_test_ret": 0.2,
+        "hodl_test_ret": -2.8
+      },
+      {
+        "train_start": "2025-04-24",
+        "test_start": "2025-10-21",
+        "test_end": "2025-12-20",
+        "chosen_spacing_pct": 2.0,
+        "chosen_core": 0.6,
+        "train_ret": 16.9,
+        "opt_test_ret": -22.4,
+        "fixed_test_ret": -18.9,
+        "hodl_test_ret": -24.7
+      },
+      {
+        "train_start": "2025-06-23",
+        "test_start": "2025-12-20",
+        "test_end": "2026-02-18",
+        "chosen_spacing_pct": 2.0,
+        "chosen_core": 0.0,
+        "train_ret": -6.8,
+        "opt_test_ret": -22.9,
+        "fixed_test_ret": -23.1,
+        "hodl_test_ret": -24.1
+      },
+      {
+        "train_start": "2025-08-22",
+        "test_start": "2026-02-18",
+        "test_end": "2026-04-19",
+        "chosen_spacing_pct": 2.0,
+        "chosen_core": 0.0,
+        "train_ret": -20.0,
+        "opt_test_ret": 12.4,
+        "fixed_test_ret": 11.9,
+        "hodl_test_ret": 14.8
+      }
+    ],
+    "fee_floor_pct": 0.772,
+    "compounded": {
+      "opt": -26.8,
+      "fix": -19.9,
+      "hod": 6.0
+    }
+  }
+}

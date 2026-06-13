@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.DS_Store
+*.code-workspace
+
+.claude/
+
+# internal docs — not for the public repo
+CLAUDE.md
+DEPLOY.md

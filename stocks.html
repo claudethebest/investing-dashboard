@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Index Investing Dashboard — don't get poorer</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root{--bg:#0d1117;--card:#161b22;--line:#30363d;--txt:#e6edf3;--mut:#8b949e;
+        --grn:#2ca02c;--red:#d62728;--blu:#4c9be8;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);
+       font:14px/1.5 -apple-system,Segoe UI,Roboto,sans-serif;padding:24px;max-width:1180px;margin:auto}
+  h1{font-size:22px;margin:0 0 4px} h2{font-size:16px;margin:0 0 12px}
+  .sub{color:var(--mut);font-size:13px;margin-bottom:14px} .mut{color:var(--mut)}
+  .nav{margin-bottom:16px} .nav a{color:var(--blu);text-decoration:none;font-size:13px;margin-right:14px}
+  .ticker{display:flex;gap:14px;flex-wrap:wrap;margin:0 0 18px}
+  .tk{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;min-width:150px}
+  .tk .pair{font-size:12px;color:var(--mut)} .tk .px{font-size:20px;font-weight:600;font-variant-numeric:tabular-nums}
+  .tk .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--grn);margin-right:6px;animation:pulse 1.6s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+  .tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:16px;flex-wrap:wrap}
+  .tab{padding:9px 16px;cursor:pointer;color:var(--mut);border:1px solid transparent;border-bottom:none;
+       border-radius:8px 8px 0 0;font-size:14px;user-select:none}
+  .tab:hover{color:var(--txt)}
+  .tab.active{color:var(--txt);background:var(--card);border-color:var(--line)}
+  .panel{display:none} .panel.active{display:block}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px;margin-bottom:18px}
+  table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:13px}
+  th,td{text-align:right;padding:7px 9px;border-bottom:1px solid var(--line)}
+  th:first-child,td:first-child{text-align:left}
+  th{color:var(--mut);font-weight:500;font-size:12px}
+  .pos{color:var(--grn)} .neg{color:var(--red)} .b{font-weight:600}
+  .chip{display:inline-block;background:#21262d;border:1px solid var(--line);border-radius:6px;padding:1px 8px;font-size:12px;color:var(--mut);margin-left:6px}
+  ul.find{margin:0;padding-left:18px} ul.find li{margin:8px 0}
+  .cap{color:var(--mut);font-size:13px;margin:10px 0 0}
+  .foot{color:var(--mut);font-size:12px;margin-top:18px;text-align:center}
+  button{background:#21262d;color:var(--txt);border:1px solid var(--line);border-radius:7px;padding:6px 12px;cursor:pointer}
+</style>
+</head>
+<body>
+  <h1>Index Investing Dashboard <span class="mut">— the goal is just "don't get poorer"</span></h1>
+  <div class="sub" id="sub">loading…</div>
+  <div class="nav"><a href="index.html">← BTC Strategy Lab</a><a href="stocks.html">Stocks (here)</a></div>
+
+  <div class="ticker" id="ticker"></div>
+
+  <div class="tabs" id="tabs">
+    <div class="tab active" data-p="p1">📈 Portfolios</div>
+    <div class="tab" data-p="p2">⚠️ Single-stock risk</div>
+    <div class="tab" data-p="p3">📋 All assets</div>
+    <div class="tab" data-p="p5">🇹🇭 Thai funds</div>
+    <div class="tab" data-p="p4">💡 Notes</div>
+  </div>
+
+  <!-- TAB 1: PORTFOLIOS -->
+  <div class="panel active" id="p1">
+    <div class="card">
+      <h2>$10k in lazy index portfolios — 10 years</h2>
+      <canvas id="growth" height="120"></canvas>
+      <p class="cap">Every index portfolio blew past the inflation line (the "don't get poorer" hurdle).
+        The S&P 500 won this decade but with deeper drops; diversified mixes ride smoother.</p>
+    </div>
+    <div class="card">
+      <h2>Lazy portfolios <span class="chip">pick one, automate, hold</span></h2>
+      <table id="ports"></table>
+    </div>
+  </div>
+
+  <!-- TAB 2: SINGLE-STOCK RISK -->
+  <div class="panel" id="p2">
+    <div class="card">
+      <h2>The risk you delete by indexing <span class="chip">single stocks vs the index</span></h2>
+      <canvas id="risk" height="120"></canvas>
+      <p class="cap">$10k in single stocks (log scale). Notice the <b>jagged, terrifying swings</b> — that's the
+        "owner could destroy it anytime" risk you described, made visible. The index (red) is the calm line through it.</p>
+    </div>
+    <div class="card">
+      <h2>Worst drop endured <span class="chip">max drawdown — lower is scarier</span></h2>
+      <canvas id="dd" height="90"></canvas>
+      <p class="cap">A single stock can crater <b class="neg">−74%</b> (TSLA) on its own story while the market is fine.
+        The index's worst (−34%) is shallower and always recovered. <b>You don't predict which stock blows up — you
+        own them all so no single one can hurt you.</b></p>
+    </div>
+  </div>
+
+  <!-- TAB 3: ALL ASSETS -->
+  <div class="panel" id="p3">
+    <div class="card">
+      <h2>Individual assets <span class="chip">ETFs = core · stocks = context only</span></h2>
+      <table id="assets"></table>
+      <p class="cap">10-year total return (dividends included). The stocks shown are <i>survivors</i> — survivorship
+        bias. For each AAPL there are names that went to zero; an index quietly drops those for you.</p>
+    </div>
+  </div>
+
+  <!-- TAB 5: THAI FUNDS -->
+  <div class="panel" id="p5">
+    <div class="card">
+      <h2>Cheapest index funds you can actually buy in Thailand <span class="chip" id="tfnote">THB · verified fees</span></h2>
+      <p class="cap">Actual annual fees (incl. VAT) from official factsheets + WealthMagik. <b>Lower fee = more of the index's
+        return stays yours.</b> 🏆 = cheapest verified in its category. Fees drift — confirm on the latest fact sheet before buying.</p>
+      <div id="thaifunds">loading…</div>
+    </div>
+  </div>
+
+  <!-- TAB 4: NOTES -->
+  <div class="panel" id="p4">
+    <div class="card">
+      <h2>What this actually says (read before picking)</h2>
+      <ul class="find">
+        <li><b>"Don't get poorer" is easily cleared.</b> Every broad index returned <b class="pos">+7% to +12%/yr after inflation</b> over 10 years — $10k → ~$40k (S&P 500) vs the ~$13k inflation line.</li>
+        <li><b>The S&P 500 beat the "diversified" mixes</b> (15.4% vs ~10%) — but that's a <i>US-led decade</i>, not a law, and it fell harder (−34% vs −23%). More diversification = smoother, lower return.</li>
+        <li><b class="neg">Bonds lost to inflation</b> (BND −1.3% real). "Safe" didn't preserve purchasing power this decade.</li>
+        <li><b>Individual stocks = uncompensated risk.</b> The market doesn't pay you extra to hold one owner's hidden story — you could diversify it away for free. So don't carry it.</li>
+        <li><b>Temper expectations:</b> this was an above-average bull (~15%/yr vs ~7% real long-run), measured near highs. Plan for <b>~7%/yr real</b> and a ~35% drawdown sometime — the price of admission.</li>
+        <li><b>The move:</b> one broad fund (VT, or VTI+VXUS), maybe a slice of bonds, auto-invest monthly, hold for years. No picking.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="foot"><button onclick="location.reload()">↻ reload</button>
+    &nbsp; quotes refresh every 15s · data built <span id="gen"></span> · 10y total return incl. dividends</div>
+
+<script>
+const fmt=(n,d=0)=>Number(n).toLocaleString(undefined,{minimumFractionDigits:d,maximumFractionDigits:d});
+const sgn=p=>(p>=0?'+':'')+Number(p).toFixed(1)+'%';
+const cl=p=>p>=0?'pos':'neg';
+let DATA=null;
+
+// tab switching
+document.getElementById('tabs').addEventListener('click',e=>{
+  const t=e.target.closest('.tab'); if(!t)return;
+  document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===t));
+  document.querySelectorAll('.panel').forEach(x=>x.classList.toggle('active',x.id===t.dataset.p));
+});
+
+async function load(){
+  DATA=await (await fetch('stocks.json')).json();
+  document.getElementById('sub').textContent=`US stocks + ETFs · 10-year total return (dividends included) · benchmark = a broad index`;
+  document.getElementById('gen').textContent=DATA.generated_at;
+  renderPorts(); renderAssets(); renderGrowth(); renderRisk(); renderDD(); renderTicker(); renderThai();
+}
+
+async function renderThai(){
+  let TF; try{ TF=await (await fetch('thaifunds.json')).json(); }catch(e){ return; }
+  document.getElementById('tfnote').textContent=`THB · fees as of ${TF.generated_at}`;
+  let html='';
+  for(const cat of TF.categories){
+    const funds=cat.funds.slice().sort((a,b)=>(a.ter==null?9:a.ter)-(b.ter==null?9:b.ter));
+    html+=`<h3 style="margin-top:18px">${cat.title}</h3>`;
+    html+=`<table><tr><th>fund</th><th>house</th><th>tracks</th><th>fee/yr</th><th>entry</th><th>hedging</th><th>classes</th></tr>`;
+    for(const f of funds){
+      const ter=f.ter==null?'<span class=mut>n/a</span>':`<b class=${f.ter<0.7?'pos':f.ter>1?'neg':''}>${f.ter.toFixed(2)}%</b>`;
+      const front=f.front==null?'n/a':(f.front===0?'<span class=pos>0%</span>':f.front+'%');
+      const star=f.best?' 🏆':'';
+      html+=`<tr><td class=b>${f.code}${star}</td><td class=mut>${f.house}</td><td class=mut>${f.master}</td>`+
+            `<td>${ter}</td><td>${front}</td><td class=mut>${f.hedge}</td><td class=mut style="font-size:12px">${f.classes}</td></tr>`;
+    }
+    html+=`</table>`;
+  }
+  html+=`<p class="cap" style="margin-top:16px"><b>How to read it:</b> for the S&amp;P 500, the fund you linked (SCBS&amp;P500, 1.11%)
+    is the <b class=neg>most expensive</b> — <b class=pos>K-US500X at 0.64%</b> tracks the same index for ~half the cost.
+    For one-fund global diversification, <b class=pos>K-WORLDX (0.62%)</b> beats any US-only fund on breadth.
+    Skip Thai SET50 for growth — the SET index has gone ~nowhere for a decade while the S&amp;P tripled.</p>`;
+  document.getElementById('thaifunds').innerHTML=html;
+}
+
+function renderPorts(){
+  let h=`<tr><th>portfolio</th><th>mix</th><th>CAGR</th><th>after inflation</th><th>max drop</th><th>$10k →</th></tr>`;
+  for(const p of DATA.portfolios){
+    const mix=Object.entries(p.weights).map(([k,v])=>`${Math.round(v*100)}% ${k}`).join(' · ');
+    h+=`<tr><td class=b>${p.name}</td><td class=mut>${mix}</td><td>${sgn(p.cagr_pct)}</td>`+
+       `<td class=${cl(p.real_cagr_pct)}>${sgn(p.real_cagr_pct)}</td><td class=neg>${p.max_dd_pct}%</td><td>$${fmt(p.grow_10k)}</td></tr>`;
+  }
+  document.getElementById('ports').innerHTML=h;
+}
+
+function renderAssets(){
+  let h=`<tr><th>ticker</th><th>name</th><th>type</th><th>CAGR</th><th>real</th><th>max drop</th><th>vol</th><th>$10k →</th></tr>`;
+  for(const a of DATA.assets){
+    h+=`<tr><td class=b>${a.ticker}</td><td class=mut>${a.name}</td><td class=mut>${a.kind}</td><td>${sgn(a.cagr_pct)}</td>`+
+       `<td class=${cl(a.real_cagr_pct)}>${sgn(a.real_cagr_pct)}</td><td class=neg>${a.max_dd_pct}%</td><td class=mut>${a.vol_pct}%</td><td>$${fmt(a.grow_10k)}</td></tr>`;
+  }
+  document.getElementById('assets').innerHTML=h;
+}
+
+const lineOpts=(log)=>({responsive:true,interaction:{mode:'index',intersect:false},
+  plugins:{legend:{labels:{color:'#8b949e',boxWidth:12}}},
+  scales:{x:{ticks:{color:'#8b949e',maxTicksLimit:8},grid:{color:'#21262d'}},
+          y:{type:log?'logarithmic':'linear',ticks:{color:'#8b949e',callback:v=>'$'+(v>=1000?(v/1000)+'k':v)},grid:{color:'#21262d'}}}});
+
+function renderGrowth(){
+  const colors={'S&P 500 only':'#d62728','Classic 60/40':'#2ca02c','3-Fund (global)':'#4c9be8'};
+  const ds=Object.entries(DATA.curves).map(([n,v])=>({label:n,data:v,borderColor:colors[n]||'#888',borderWidth:1.8,pointRadius:0,tension:.1}));
+  ds.push({label:'inflation (~3%/yr)',data:DATA.inflation_curve,borderColor:'#888',borderDash:[6,4],borderWidth:1.3,pointRadius:0});
+  new Chart(document.getElementById('growth'),{type:'line',data:{labels:DATA.curve_dates,datasets:ds},options:lineOpts(false)});
+}
+
+function renderRisk(){
+  const colors={SPY:'#d62728',AAPL:'#4c9be8',MSFT:'#9b8cff',KO:'#e8a33d',TSLA:'#2ca02c'};
+  const ds=Object.entries(DATA.asset_curves).map(([t,v])=>({label:t,data:v,
+    borderColor:colors[t]||'#888',borderWidth:t==='SPY'?2.4:1.3,pointRadius:0,tension:.1}));
+  new Chart(document.getElementById('risk'),{type:'line',data:{labels:DATA.asset_curve_dates,datasets:ds},options:lineOpts(true)});
+}
+
+function renderDD(){
+  const set=['SPY','AAPL','MSFT','KO','TSLA'];
+  const m=set.map(t=>DATA.assets.find(a=>a.ticker===t)).filter(Boolean);
+  new Chart(document.getElementById('dd'),{type:'bar',
+    data:{labels:m.map(a=>a.ticker),datasets:[{data:m.map(a=>a.max_dd_pct),
+      backgroundColor:m.map(a=>a.ticker==='SPY'?'#d62728':'#8b949e')}]},
+    options:{responsive:true,plugins:{legend:{display:false}},
+      scales:{x:{ticks:{color:'#8b949e'},grid:{display:false}},
+              y:{ticks:{color:'#8b949e',callback:v=>v+'%'},grid:{color:'#21262d'}}}}});
+}
+
+function renderTicker(){
+  const show=['SPY','QQQ','VT'];
+  document.getElementById('ticker').innerHTML=show.map(t=>
+    `<div class="tk"><div class="pair"><span class="dot"></span>${t}</div><div class="px" id="q-${t}">${DATA.quotes[t]?'$'+fmt(DATA.quotes[t],2):'—'}</div></div>`).join('');
+}
+let last={};
+async function tick(){
+  try{
+    const q=await (await fetch('/api/stockquote')).json();
+    for(const t in q){const el=document.getElementById('q-'+t); if(!el)continue;
+      const v=q[t],p=last[t]; el.textContent='$'+fmt(v,2);
+      if(p!=null){el.style.color=v>p?'#2ca02c':v<p?'#d62728':'';setTimeout(()=>el.style.color='',800);}
+      last[t]=v;}
+  }catch(e){}
+}
+// stock quotes come baked into stocks.json (Yahoo blocks live browser calls);
+// they refresh once daily when the GitHub Action rebuilds the data.
+load();
+</script>
+</body>
+</html>

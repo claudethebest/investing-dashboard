@@ -1,0 +1,67 @@
+{
+  "generated_at": "2026-06-13",
+  "note": "Actual (เก็บจริง) fees per year as % of NAV, from official SCB/KAsset/Krungsri/BBLAM/KKP/KTAM factsheets + WealthMagik. Fees drift — verify on the latest fund fact sheet before buying. 'n/a' = could not verify (not guessed).",
+  "categories": [
+    {
+      "key": "sp500",
+      "title": "S&P 500 — US large-cap (feeds iShares IVV / SPDR SPY)",
+      "funds": [
+        {"code": "K-US500X", "house": "Kasikorn", "master": "iShares Core S&P 500 (IVV)", "ter": 0.6375, "front": 0.0, "hedge": "discretionary", "classes": "Accum, RMF; unhedged sibling K-US500XUH", "best": true, "conf": "high"},
+        {"code": "KT-US500-A", "house": "Krungthai", "master": "iShares Core S&P 500 (IVV)", "ter": 0.7213, "front": 0.50, "hedge": "discretionary (~69% realized)", "classes": "Accum only", "best": false, "conf": "high"},
+        {"code": "M-US500H", "house": "MFC", "master": "iShares Core S&P 500 (IVV)", "ter": 0.9844, "front": 0.50, "hedge": "discretionary (~93% realized)", "classes": "Accum (new, Oct 2025)", "best": false, "conf": "high"},
+        {"code": "TISCOUS-A", "house": "TISCO", "master": "SPDR S&P 500 (SPY)", "ter": 1.28, "front": 1.00, "hedge": "discretionary", "classes": "Accum, SSF, RMF", "best": false, "conf": "high"},
+        {"code": "TUSEQ-UH", "house": "TISCO", "master": "SPDR S&P 500 (SPY)", "ter": 1.36, "front": 1.00, "hedge": "unhedged", "classes": "Accum", "best": false, "conf": "high"},
+        {"code": "KKP US500-UH-E", "house": "KKP (online)", "master": "iShares Core S&P 500 (IVV)", "ter": null, "front": 0.27, "hedge": "unhedged", "classes": "E-class online — 0% management fee, small redemption fee", "best": false, "conf": "med"},
+        {"code": "KKP US500-H", "house": "KKP", "master": "iShares Core S&P 500 (IVV)", "ter": 0.674, "front": 0.25, "hedge": "THB-hedged", "classes": "H, UH, SSF, RMF, E", "best": false, "conf": "med"},
+        {"code": "B-USPASSIVE", "house": "BBLAM", "master": "SPDR S&P 500 (SPY)", "ter": 0.7942, "front": 0.50, "hedge": "unhedged", "classes": "Accum, RMF", "best": false, "conf": "high"},
+        {"code": "KKP US500-UH", "house": "KKP", "master": "iShares Core S&P 500 (IVV)", "ter": 0.9416, "front": 0.50, "hedge": "unhedged", "classes": "UH, SSF, RMF", "best": false, "conf": "med"},
+        {"code": "KFUSINDFX", "house": "Krungsri", "master": "iShares Core S&P 500 (IVV)", "ter": 0.9951, "front": 0.50, "hedge": "unhedged / discretionary", "classes": "A, I, RMF", "best": false, "conf": "high"},
+        {"code": "KFUSINDX", "house": "Krungsri", "master": "iShares Core S&P 500 (IVV)", "ter": 1.0008, "front": 0.50, "hedge": "THB-hedged ≥90%", "classes": "A, I", "best": false, "conf": "high"},
+        {"code": "SCBS&P500", "house": "SCBAM", "master": "iShares Core S&P 500 (IVV)", "ter": 1.11, "front": 0.50, "hedge": "THB-hedged 95-105%", "classes": "Div (D), Accum (A), SSF, RMF — the fund you linked", "best": false, "conf": "high"}
+      ]
+    },
+    {
+      "key": "nasdaq",
+      "title": "Nasdaq-100 — US tech (feeds Invesco QQQM)",
+      "funds": [
+        {"code": "SCBNDQ(A)", "house": "SCBAM", "master": "Invesco QQQM", "ter": 0.37, "front": 0.0, "hedge": "THB-hedged 95-105%", "classes": "Accum, E, SSF, RMF", "best": true, "conf": "high"},
+        {"code": "KKP NDQ100-H", "house": "KKP", "master": "Invesco QQQM", "ter": 0.43, "front": 0.0, "hedge": "THB-hedged", "classes": "H, UH, SSF, E", "best": false, "conf": "high"},
+        {"code": "KT-NASDAQ-A", "house": "Krungthai", "master": "Invesco QQQM", "ter": 0.5195, "front": 0.0, "hedge": "discretionary", "classes": "Accum only", "best": false, "conf": "high"},
+        {"code": "K-USXNDQ", "house": "Kasikorn", "master": "Invesco QQQM", "ter": 0.7074, "front": 0.0, "hedge": "partial ~75%", "classes": "Accum, Div, RMF; unhedged K-USXNDQUH", "best": false, "conf": "high"},
+        {"code": "KFNDQ", "house": "Krungsri", "master": "Invesco QQQM", "ter": 1.0338, "front": 0.0, "hedge": "discretionary", "classes": "Accum", "best": false, "conf": "high"},
+        {"code": "TNASDAQ-A", "house": "TISCO", "master": "Invesco QQQ", "ter": 1.31, "front": 1.00, "hedge": "discretionary", "classes": "Accum, SSF, RMF", "best": false, "conf": "high"}
+      ]
+    },
+    {
+      "key": "global",
+      "title": "Global all-world — MSCI ACWI (closest thing to VT: developed + emerging)",
+      "funds": [
+        {"code": "K-WORLDX", "house": "Kasikorn", "master": "iShares MSCI ACWI", "ter": 0.6224, "front": 0.0, "hedge": "discretionary (largely unhedged)", "classes": "Accum, RMF", "best": true, "conf": "high"},
+        {"code": "KT-GEQ", "house": "Krungthai", "master": "iShares MSCI ACWI", "ter": 0.6708, "front": 0.0, "hedge": "discretionary", "classes": "Accum (A), SSF", "best": false, "conf": "high"},
+        {"code": "KKP PGE", "house": "KKP", "master": "iShares MSCI ACWI", "ter": 0.68, "front": 0.0, "hedge": "both: -UH unhedged, -H hedged", "classes": "UH, H, each + SSF + RMF", "best": false, "conf": "high"}
+      ]
+    },
+    {
+      "key": "world",
+      "title": "MSCI World — developed markets only (no emerging)",
+      "funds": [
+        {"code": "SCBWORLD(E)", "house": "SCBAM (online)", "master": "iShares MSCI World", "ter": 0.10, "front": 0.0, "hedge": "THB-hedged", "classes": "E-class — 0% mgmt-fee WAIVER (could be revoked; confirm)", "best": true, "conf": "med"},
+        {"code": "SCBWORLD(A)", "house": "SCBAM", "master": "iShares MSCI World", "ter": 1.10, "front": 0.50, "hedge": "THB-hedged", "classes": "A, P, E, SSF, RMF", "best": false, "conf": "high"},
+        {"code": "ES-WDEQ", "house": "Eastspring", "master": "Amundi MSCI World", "ter": 1.1316, "front": 0.0, "hedge": "discretionary", "classes": "Accum", "best": false, "conf": "high"}
+      ]
+    },
+    {
+      "key": "set50",
+      "title": "Thai SET50 — domestic (⚠ SET index ~flat for 10 years vs S&P ~3.6×)",
+      "funds": [
+        {"code": "KT-SET50", "house": "Krungthai", "master": "SET50 index", "ter": 0.4925, "front": 0.0, "hedge": "n/a (Thai)", "classes": "Accum (A), Div (D)", "best": true, "conf": "high"},
+        {"code": "ES-SET50DV", "house": "Eastspring", "master": "SET50 index", "ter": 0.556, "front": 0.0, "hedge": "n/a", "classes": "Dividend", "best": false, "conf": "high"},
+        {"code": "KKP SET50 ESG", "house": "KKP", "master": "SET50 (ESG-screened)", "ter": 0.568, "front": 0.0, "hedge": "n/a", "classes": "General, SSF, SSFX", "best": false, "conf": "high"},
+        {"code": "PRINCIPAL SET50-A", "house": "Principal", "master": "SET50 index", "ter": 0.6172, "front": 0.0, "hedge": "n/a", "classes": "Accum, E, SSF", "best": false, "conf": "high"},
+        {"code": "ES-SET50-A", "house": "Eastspring", "master": "SET50 index", "ter": 0.6206, "front": 0.0, "hedge": "n/a", "classes": "Accum", "best": false, "conf": "high"},
+        {"code": "SCBSET50", "house": "SCBAM", "master": "SET50 index", "ter": 0.63, "front": 0.0, "hedge": "n/a", "classes": "Accum, E, SSF, RMF", "best": false, "conf": "high"},
+        {"code": "K-SET50", "house": "Kasikorn", "master": "SET50 index", "ter": 0.6403, "front": 0.0, "hedge": "n/a", "classes": "Accum, RMF", "best": false, "conf": "high"}
+      ]
+    }
+  ]
+}
